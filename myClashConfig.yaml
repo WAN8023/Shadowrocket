@@ -1,0 +1,110 @@
+# Clash-Verge     自用配置
+# UpdateTime      2024年6月7日21点20分
+# Docs1           https://wiki.metacubex.one/
+# Docs2           https://clash-verge-rev.github.io/index.html
+
+pr: &pr {type: select, proxies: [🚀 芜湖起飞,🇭🇰 香港节点,🇨🇳 台湾节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇺🇸 美国节点,DIRECT]}
+p: &p {type: http, interval: 86400}
+auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 600, use: [mysub]}
+
+proxy-providers:
+  mysub:
+    <<: *p
+    url: 机场订阅链接
+
+proxy-groups:
+  - {name: 🚀 芜湖起飞, type: select, proxies: [🇭🇰 香港节点,🇨🇳 台湾节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇺🇸 美国节点,DIRECT]}
+  - {name: 📲 Telegram, <<: *pr}
+  - {name: 🤖 ChatGPT, <<: *pr}
+  - {name: 🎥 YouTube, <<: *pr}
+  - {name: 📺 哔哩哔哩, <<: *pr}
+  - {name: 🍎 Apple, <<: *pr}
+  - {name: 🐟 漏网之鱼, <<: *pr}
+  - {name: ⛔ 世界和平, type: select, proxies: [REJECT, DIRECT]}
+
+  - {name: 🇭🇰 香港节点, <<: *auto, filter: "🇭🇰"}
+  - {name: 🇨🇳 台湾节点, <<: *auto, filter: "🇨🇳"}
+  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "🇸🇬"}
+  - {name: 🇯🇵 日本节点, <<: *auto, filter: "🇯🇵"}
+  - {name: 🇺🇸 美国节点, <<: *auto, filter: "🇺🇸"}
+
+
+rule-providers:
+  reject: # 广告域名列表
+    <<: *p
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
+    path: ./ruleset/reject.yaml
+  bilibili:
+    <<: *p
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml
+    path: ./ruleset/bilibili.yaml
+  openai:
+    <<: *p
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
+    path: ./ruleset/openai.yaml
+  youtube:
+    <<: *p
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml
+    path: ./ruleset/youtube.yaml
+  apple:
+    <<: *p
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt
+    path: ./ruleset/apple.yaml
+  proxy: # 代理域名列表
+    <<: *p
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt
+    path: ./ruleset/proxy.yaml
+  direct: # 直连域名列表
+    <<: *p
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt
+    path: ./ruleset/direct.yaml
+  private: # 私有网络专用域名列表
+    <<: *p
+    behavior: domain
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt
+    path: ./ruleset/private.yaml
+  telegramcidr: # Telegram 使用的 IP 地址列表
+    <<: *p
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt
+    path: ./ruleset/telegramcidr.yaml
+  cncidr: # 中国大陆 IP 地址列表
+    <<: *p
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt
+    path: ./ruleset/cncidr.yaml
+  lancidr: # 局域网 IP 及保留 IP 地址列表
+    <<: *p
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt
+    path: ./ruleset/lancidr.yaml
+  applications: # 需要直连的常见软件列表
+    <<: *p
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt
+    path: ./ruleset/applications.yaml
+
+rules:
+  - RULE-SET,reject,⛔ 世界和平
+  - RULE-SET,openai,🤖 ChatGPT
+  - RULE-SET,youtube,🎥 YouTube
+  - RULE-SET,telegramcidr,📲 Telegram
+  - RULE-SET,bilibili,📺 哔哩哔哩
+  - RULE-SET,apple,🍎 Apple
+  - RULE-SET,proxy,🚀 芜湖起飞
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,cncidr,DIRECT
+  - RULE-SET,lancidr,DIRECT,no-resolve
+  - GEOIP,LAN,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT
+  - MATCH,🐟 漏网之鱼
+  
