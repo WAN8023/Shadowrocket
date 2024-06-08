@@ -1,11 +1,12 @@
 # Clash-Verge     自用配置
-# UpdateTime      2024年6月7日21点20分
+# UpdateTime      2024年6月8日12点00分
 # Docs1           https://wiki.metacubex.one/
 # Docs2           https://clash-verge-rev.github.io/index.html
 
+
 pr: &pr {type: select, proxies: [🚀 芜湖起飞,🇭🇰 香港节点,🇨🇳 台湾节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇺🇸 美国节点,DIRECT]}
 p: &p {type: http, interval: 86400}
-auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 600, use: [mysub]}
+auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 600, tolerance: 100, use: [mysub]}
 
 proxy-providers:
   mysub:
@@ -22,11 +23,11 @@ proxy-groups:
   - {name: 🐟 漏网之鱼, <<: *pr}
   - {name: ⛔ 世界和平, type: select, proxies: [REJECT, DIRECT]}
 
-  - {name: 🇭🇰 香港节点, <<: *auto, filter: "🇭🇰"}
-  - {name: 🇨🇳 台湾节点, <<: *auto, filter: "🇨🇳"}
-  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "🇸🇬"}
-  - {name: 🇯🇵 日本节点, <<: *auto, filter: "🇯🇵"}
-  - {name: 🇺🇸 美国节点, <<: *auto, filter: "🇺🇸"}
+  - {name: 🇭🇰 香港节点, <<: *auto, filter: "^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 🇨🇳 台湾节点, <<: *auto, filter: "^(?=.*((?i)🇨🇳|台湾|(\b(TW|Tai|Taiwan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 🇯🇵 日本节点, <<: *auto, filter: "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 🇺🇸 美国节点, <<: *auto, filter: "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
 
 
 rule-providers:
@@ -95,16 +96,16 @@ rules:
   - RULE-SET,reject,⛔ 世界和平
   - RULE-SET,openai,🤖 ChatGPT
   - RULE-SET,youtube,🎥 YouTube
-  - RULE-SET,telegramcidr,📲 Telegram
+  - RULE-SET,telegramcidr,📲 Telegram,no-resolve
   - RULE-SET,bilibili,📺 哔哩哔哩
   - RULE-SET,apple,🍎 Apple
   - RULE-SET,proxy,🚀 芜湖起飞
   - RULE-SET,applications,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,direct,DIRECT
-  - RULE-SET,cncidr,DIRECT
+  - RULE-SET,cncidr,DIRECT,no-resolve
   - RULE-SET,lancidr,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
-  - GEOIP,CN,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
   - MATCH,🐟 漏网之鱼
   
