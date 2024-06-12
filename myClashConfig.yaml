@@ -1,34 +1,35 @@
 # Clash-Verge     自用配置
-# UpdateTime      2024年6月8日12点00分
+# UpdateTime      2024年6月12日22点26分
 # Docs1           https://wiki.metacubex.one/
 # Docs2           https://clash-verge-rev.github.io/index.html
 
 
-pr: &pr {type: select, proxies: [🚀 芜湖起飞,🇭🇰 香港节点,🇨🇳 台湾节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇺🇸 美国节点,DIRECT]}
+pr: &pr {type: select, proxies: [芜湖起飞, 香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, DIRECT]}
 p: &p {type: http, interval: 86400}
-auto: &auto {type: url-test, lazy: true, url: http://www.gstatic.com/generate_204, interval: 600, tolerance: 100, use: [mysub]}
+auto: &auto {type: url-test, url: https://www.gstatic.com/generate_204, interval: 600, tolerance: 100, use: [mysub]}
 
 proxy-providers:
   mysub:
     <<: *p
+    path: ./proxies/mysub.yaml
     url: 机场订阅链接
 
 proxy-groups:
-  - {name: 🚀 芜湖起飞, type: select, proxies: [🇭🇰 香港节点,🇨🇳 台湾节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇺🇸 美国节点,DIRECT]}
-  - {name: 📲 Telegram, <<: *pr}
-  - {name: 🤖 ChatGPT, <<: *pr}
-  - {name: 🎥 YouTube, <<: *pr}
-  - {name: 📺 哔哩哔哩, <<: *pr}
-  - {name: 🍎 Apple, <<: *pr}
-  - {name: 🐟 漏网之鱼, <<: *pr}
-  - {name: ⛔ 世界和平, type: select, proxies: [REJECT, DIRECT]}
+  - {name: 芜湖起飞, icon: https://clash-verge-rev.github.io/assets/icons/speed.svg, type: select, proxies: [香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, 手动挡位, DIRECT]}
+  - {name: 手动挡位, icon: https://clash-verge-rev.github.io/assets/icons/adjust.svg, type: select, proxies: [🇭🇰 Google-Hong Kong], include-all-providers: true}
+  - {name: Telegram, <<: *pr, icon: https://clash-verge-rev.github.io/assets/icons/telegram.svg}
+  - {name: ChatGPT, <<: *pr, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png}
+  - {name: YouTube, <<: *pr, icon: https://clash-verge-rev.github.io/assets/icons/youtube.svg}
+  - {name: 哔哩哔哩, <<: *pr, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/bilibili.png}
+  - {name: Apple, <<: *pr, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Apple.png}
+  - {name: 漏网之鱼, <<: *pr, icon: https://clash-verge-rev.github.io/assets/icons/fish.svg}
+  - {name: 世界和平, type: select, icon: https://clash-verge-rev.github.io/assets/icons/block.svg, proxies: [REJECT, DIRECT]}
 
-  - {name: 🇭🇰 香港节点, <<: *auto, filter: "^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
-  - {name: 🇨🇳 台湾节点, <<: *auto, filter: "^(?=.*((?i)🇨🇳|台湾|(\b(TW|Tai|Taiwan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
-  - {name: 🇸🇬 狮城节点, <<: *auto, filter: "^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
-  - {name: 🇯🇵 日本节点, <<: *auto, filter: "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
-  - {name: 🇺🇸 美国节点, <<: *auto, filter: "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
-
+  - {name: 香港节点, icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/hk.svg, <<: *auto, filter: "^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 台湾节点, icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/cn.svg, <<: *auto, filter: "^(?=.*((?i)🇨🇳|台湾|(\b(TW|Tai|Taiwan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 狮城节点, icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/sg.svg, <<: *auto, filter: "^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 日本节点, icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/jp.svg, <<: *auto, filter: "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
+  - {name: 美国节点, icon: https://fastly.jsdelivr.net/gh/clash-verge-rev/clash-verge-rev.github.io@main/docs/assets/icons/flags/us.svg, <<: *auto, filter: "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)d{0,2}\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"}
 
 rule-providers:
   reject: # 广告域名列表
@@ -93,13 +94,13 @@ rule-providers:
     path: ./ruleset/applications.yaml
 
 rules:
-  - RULE-SET,reject,⛔ 世界和平
-  - RULE-SET,openai,🤖 ChatGPT
-  - RULE-SET,youtube,🎥 YouTube
-  - RULE-SET,telegramcidr,📲 Telegram,no-resolve
-  - RULE-SET,bilibili,📺 哔哩哔哩
-  - RULE-SET,apple,🍎 Apple
-  - RULE-SET,proxy,🚀 芜湖起飞
+  - RULE-SET,reject,世界和平
+  - RULE-SET,openai,ChatGPT
+  - RULE-SET,youtube,YouTube
+  - RULE-SET,telegramcidr,Telegram,no-resolve
+  - RULE-SET,bilibili,哔哩哔哩
+  - RULE-SET,apple,Apple
+  - RULE-SET,proxy,芜湖起飞
   - RULE-SET,applications,DIRECT
   - RULE-SET,private,DIRECT
   - RULE-SET,direct,DIRECT
@@ -107,5 +108,4 @@ rules:
   - RULE-SET,lancidr,DIRECT,no-resolve
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOIP,CN,DIRECT,no-resolve
-  - MATCH,🐟 漏网之鱼
-  
+  - MATCH,漏网之鱼
