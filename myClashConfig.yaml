@@ -1,5 +1,5 @@
 # Clash-Verge     自用配置
-# UpdateTime      2024年6月19日20点58分
+# UpdateTime      2024年11月26日10点04分
 # Docs1           https://wiki.metacubex.one/
 # Docs2           https://clash-verge-rev.github.io/index.html
 
@@ -16,7 +16,7 @@ proxy-providers:
 
 proxy-groups:
   - {name: 芜湖起飞, icon: https://clash-verge-rev.github.io/assets/icons/speed.svg, type: select, proxies: [香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, 手动挡位, DIRECT]}
-  - {name: 手动挡位, icon: https://clash-verge-rev.github.io/assets/icons/adjust.svg, type: select, proxies: [🇭🇰 Google-Hong Kong], include-all-providers: true}
+  - {name: 手动挡位, icon: https://clash-verge-rev.github.io/assets/icons/adjust.svg, type: select, include-all-providers: true}
   - {name: Telegram, icon: https://clash-verge-rev.github.io/assets/icons/telegram.svg, <<: *pr}
   - {name: ChatGPT, icon: https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Bot.png, <<: *pr}
   - {name: YouTube, icon: https://clash-verge-rev.github.io/assets/icons/youtube.svg, <<: *pr}
