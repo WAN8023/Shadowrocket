@@ -4,16 +4,16 @@
 [rewrite]
 
 # wk (Wikipedia中文)
-^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wk\+([^&]+) url 302 https://zh.wikipedia.org/wiki/$2
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wk\+([^&]+) 302 https://zh.wikipedia.org/wiki/$2
 
 # wiki (Wikipedia)
-^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wiki\+([^&]+) url 302 https://wikipedia.org/wiki/$2
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wiki\+([^&]+) 302 https://wikipedia.org/wiki/$2
 
 # gh (GitHub)
-^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gh\+([^&]+) url 302 https://github.com/search?q=$2
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gh\+([^&]+) 302 https://github.com/search?q=$2
 
 # gg(Google)
-^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gg\+([^&]+) url 302 https://www.google.com/search?q=$2
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gg\+([^&]+) 302 https://www.google.com/search?q=$2
 
 [mitm]
 hostname = m.baidu.com
