@@ -1,17 +1,17 @@
 # Clash-Verge     自用配置
-# UpdateTime      2026年03月26日19点24分
+# UpdateTime      2026年04月03日13点39分
 # Docs1           https://wiki.metacubex.one/
 # Docs2           https://clash-verge-rev.github.io/index.html
 
-
+global-ua: clash-verge/v2.2.2
 pr: &pr {type: select, proxies: [芜湖起飞, 香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, DIRECT]}
 p: &p {type: http, interval: 604800, proxy: 芜湖起飞}
-auto: &auto {type: url-test, url: https://www.gstatic.com/generate_204, interval: 60, tolerance: 50, use: [mysub]}
+auto: &auto {type: url-test, url: https://www.gstatic.com/generate_204, interval: 60, tolerance: 50, use: [starnet]}
 
 proxy-providers:
-  mysub:
+  starnet:
     type: http
-    path: ./proxies/mysub.yaml
+    path: ./proxies/starnet.yaml
     url: 机场订阅链接
 
 proxy-groups:
